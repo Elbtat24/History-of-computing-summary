@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملخص مدام اماني لتجنب الدور التاني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(90deg, #1a2980 0%, #26d0ce 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+        
+        .course-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-item {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+        
+        .lecture-section {
+            margin-bottom: 50px;
+            padding: 25px;
+            border-radius: 15px;
+            background-color: #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-title {
+            color: #1a2980;
+            border-right: 5px solid #26d0ce;
+            padding-right: 15px;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-left: 10px;
+            color: #26d0ce;
+        }
+        
+        .qa-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .qa-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .qa-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .qa-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .question {
+            font-weight: bold;
+            color: #1a2980;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .question:hover {
+            color: #26d0ce;
+        }
+        
+        .toggle-icon {
+            color: #26d0ce;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .answer {
+            color: #555;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .answer.show {
+            display: block;
+        }
+        
+        .info-section {
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            border-right: 5px solid #1a2980;
+        }
+        
+        .info-title {
+            color: #1a2980;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-title i {
+            margin-left: 10px;
+        }
+        
+        .info-list {
+            list-style-type: none;
+        }
+        
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px dashed #ccc;
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .info-list li:before {
+            content: "•";
+            color: #26d0ce;
+            font-size: 1.5rem;
+            position: absolute;
+            right: 0;
+        }
+        
+        .highlight {
+            background-color: rgba(38, 208, 206, 0.1);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            color: #1a2980;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #1a2980 0%, #26d0ce 100%);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(26, 41, 128, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(90deg, #8e9eab 0%, #eef2f3 100%);
+            color: #333;
+        }
+        
+        .counter {
+            display: inline-block;
+            background-color: #1a2980;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 10px;
+        }
+        
+        .important-note {
+            background-color: #fff9e6;
+            border-right: 4px solid #ffcc00;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 25px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-laptop-code"></i> تلخيص محاضرات تاريخ الحوسبة</h1>
+            <div class="subtitle">المحاضرة الخامسة والسادسة - منهج أولي حاسبات ومعلومات</div>
+            <div class="course-info">
+                <div class="info-item"><i class="fas fa-university"></i> جامعة كفر الشيخ</div>
+                <div class="info-item"><i class="fas fa-user-graduate"></i> د. اتراب احمد عبد العزيز</div>
+                <div class="info-item"><i class="fas fa-book"></i> كلية الحاسبات والمعلومات</div>
+            </div>
+        </header>
+        
+        <section class="lecture-section">
+            <h2 class="section-title"><i class="fas fa-network-wired"></i> المحاضرة الخامسة: تاريخ الإنترنت</h2>
+            <div class="qa-container" id="lecture5-qa">
+                <!-- سيتم إضافة الأسئلة والأجوبة عبر JavaScript -->
+            </div>
+        </section>
+        
+        <section class="lecture-section">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i> المحاضرة السادسة: الحوسبة كمهنة</h2>
+            <div class="qa-container" id="lecture6-qa">
+                <!-- سيتم إضافة الأسئلة والأجوبة عبر JavaScript -->
+            </div>
+        </section>
+        
+        <section class="info-section">
+            <h2 class="info-title"><i class="fas fa-info-circle"></i> معلومات عامة ومهمة</h2>
+            <ul class="info-list" id="general-info">
+                <!-- سيتم إضافة المعلومات عبر JavaScript -->
+            </ul>
+            
+            <div class="important-note">
+                <i class="fas fa-lightbulb"></i> ملاحظة: هذا التلخيص مبني على محتوى المحاضرتين الخامسة والسادسة من منهج تاريخ الحوسبة، ويهدف إلى تسليط الضوء على النقاط الأساسية بطريقة مركزة.
+            </div>
+        </section>
+        
+        <div class="controls">
+            <button class="btn" id="expand-all"><i class="fas fa-expand-alt"></i> عرض جميع الإجابات</button>
+            <button class="btn btn-secondary" id="collapse-all"><i class="fas fa-compress-alt"></i> إخفاء جميع الإجابات</button>
+            <button class="btn" id="print-btn"><i class="fas fa-print"></i> طباعة التلخيص</button>
+        </div>
+        
+        <footer>
+            <p>By Mohamed Albtat</p>
+            <p>ملخص مدام اماني لتجنب الدور التاني</p>
+        </footer>
+    </div>
+
+    <script>
+        // بيانات المحاضرة الخامسة: تاريخ الإنترنت
+        const lecture5Data = [
+            {
+                question: "ما هي البرقية (التلغراف) وكيف تعمل؟",
+                answer: "البرقية هي جهاز لإرسال واستقبال الرسائل عبر مسافات طويلة باستخدام إشارات كهربائية تنتقل عبر الأسلاك أو موجات الراديو. تعمل عن طريق إرسال سلسلة من النبضات الكهربائية (غالبًا مشفرة بشفرة مورس) إلى جهاز استقبال يحول هذه الإشارات إلى رسالة مكتوبة. كانت أول تقنية تفصل بين سرعة نقل المعلومات وسرعة النقل المادي."
+            },
+            {
+                question: "ما أهمية شفرة مورس؟",
+                answer: "شفرة مورس هي نظام اتصالات يشفر النص إلى تسلسلات قياسية من إشارتين مختلفتي المدة: إشارات قصيرة (نقاط) وإشارات طويلة (شرطات). طورها صموئيل مورس وآخرون في ثلاثينيات القرن التاسع عشر، وسرعة نقلها 40-50 كلمة في الدقيقة."
+            },
+            {
+                question: "ما هي إنجازات التلغراف؟",
+                answer: "1. السرعة: نقل الرسائل فورياً عبر مسافات طويلة.<br>2. النمو الاقتصادي: دمج الأسواق وسهل النمو السريع للتجارة والتمويل وصناعة الصحف.<br>3. الاستراتيجية العسكرية/السياسية: مكّنت الحكومات والجيش من التنسيق السريع.<br>4. الاتصال العالمي: أسس لتقنيات الاتصال العالمية المستقبلية."
+            },
+            {
+                question: "من اخترع الهاتف ومتى؟",
+                answer: "اخترع ألكسندر جراهام بيل الهاتف العملي الأول وحصل على براءة اختراعه في عام 1876. كان الهاتف مستوحى من التلغراف الرباعي المزدوج، وفكرة التلغراف التوافقي (نغمات متعددة على سلك واحد) قادت بيل إلى إدراك أن السلك يمكنه نقل اهتزازات الصوت."
+            },
+            {
+                question: "كيف يعمل الهاتف؟",
+                answer: "1. اهتزازات الصوت تحرك صفائح معدنية.<br>2. تتحول الاهتزازات إلى تيار كهربائي.<br>3. ينتقل التيار عبر الأسلاك.<br>4. يحول المستقبل التيار مرة أخرى إلى صوت."
+            },
+            {
+                question: "ما هو ARPANET ومتى أنشئ؟",
+                answer: "ARPANET هي أول شبكة تشغيلية تعتمد على تبديل الحزم (packet-switching). أنشئت في عام 1969 من قبل وكالة مشاريع الأبحاث المتقدمة التابعة لوزارة الدفاع الأمريكية (ARPA). أول رسالة أرسلت كانت 'LO' (محاولة إرسال 'LOGIN') من UCLA إلى معهد ستانفورد للأبحاث."
+            },
+            {
+                question: "ما هو TCP/IP ولماذا هو مهم؟",
+                answer: "TCP/IP (بروتوكول التحكم بالإرسال/بروتوكول الإنترنت) هو مجموعة بروتوكولات اتصال طورها فينتون سيرف وروبرت كان في عام 1974. أصبح المعيار الأساسي للاتصال عبر الشبكات، واعتماده الرسمي في 1 يناير 1983 على ARPANET يمثل ولادة الإنترنت الحديث."
+            },
+            {
+                question: "من اخترع الويب العالمي (WWW) ومتى؟",
+                answer: "اقترح تيم بيرنرز لي شبكة الويب العالمية في عام 1989 بينما كان يعمل في CERN. تم إصداره للجمهور في عام 1991، مما جعل الإنترنت يسهل الوصول إليه عبر المستعرضات والروابط التشعبية."
+            }
+        ];
+
+        // بيانات المحاضرة السادسة: الحوسبة كمهنة
+        const lecture6Data = [
+            {
+                question: "ما الذي يعرّف المهنة؟",
+                answer: "المهنة تتطلب: 1. معرفة متخصصة (نظرية معقدة)، 2. تعليم رسمي (درجات جامعية، شهادات، تعلم مستمر)، 3. مدونة أخلاقية توجه السلوك وتضمن النزاهة وتحمي الجمهور."
+            },
+            {
+                question: "ما الفرق بين علوم الحاسوب وتكنولوجيا المعلومات؟",
+                answer: "<span class='highlight'>علوم الحاسوب</span>: تركز على النظرية، الخوارزميات، وتصميم البرمجيات. تطورت كفرع أكاديمي مستقل في الستينيات.<br><span class='highlight'>تكنولوجيا المعلومات</span>: تركز على التطبيق العملي، البنية التحتية، دعم المستخدم. ظهرت في التسعينيات لتلبية احتياجات التكنولوجيا العملية."
+            },
+            {
+                question: "ما هي المنظمات المهنية الرئيسية في الحوسبة؟",
+                answer: "1. <span class='highlight'>ACM (رابطة مكائن الحوسبة)</span>: تأسست عام 1947، أكبر مجتمع تعليمي وعلمي للحوسبة في العالم.<br>2. <span class='highlight'>IEEE Computer Society</span>: تأسست عام 1963، تركز على الجوانب الهندسية للحوسبة، المؤتمرات، والمعايير."
+            },
+            {
+                question: "ما هي أخلاقيات الحوسبة؟",
+                answer: "تشمل: 1. الخصوصية: حماية بيانات المستخدم.<br>2. الملكية الفكرية: احترام حقوق النشر، البراءات، والتراخيص.<br>3. المسؤولية: تحمل المسؤولية عند فشل الكود أو التسبب في ضرر.<br>4. النزاهة: الصدق والثقة، تجنب الضرر، احترام الخصوصية والسرية."
+            },
+            {
+                question: "ما هي MOOCs وما فوائدها وتحدياتها؟",
+                answer: "<span class='highlight'>الدورات الجماعية المفتوحة عبر الإنترنت (MOOCs)</span>: انطلقت عام 2012 عبر منصات مثل Coursera وedX.<br><span class='highlight'>الفوائد</span>: خفضت الحواجز الجغرافية والتكلفة، توفر تعليم عالي الجودة من جامعات رائدة.<br><span class='highlight'>التحديات</span>: معدلات إكمال منخفضة (أقل من 10٪) بسبب نقص المساءلة والإرشاد."
+            },
+            {
+                question: "ما هو Curriculum CITC؟",
+                answer: "مناهج تكنولوجيا المعلومات والحوسبة (CITC-1 إلى CITC-4) توجه البرامج الأكاديمية وتضمن الجودة من خلال الاعتماد. طورت لتلبية الاحتياجات التعليمية (وليس أسئلة البحث) مع التركيز على الدعوة للمستخدم، السياق التنظيمي والاجتماعي، وتكنولوجيا الاختيار والإنشاء والتكامل والإدارة."
+            },
+            {
+                question: "ما هي مسارات الوظائف في تكنولوجيا المعلومات؟",
+                answer: "تشمل: مسؤول الشبكة، أمن المعلومات، مطور البرمجيات، محلل/عالم البيانات، فني دعم تكنولوجيا المعلومات."
+            },
+            {
+                question: "ما هو ACM Curriculum 68؟",
+                answer: "أصدرت ACM Curriculum 68الذي حدد بشكل رسمي الحدود الأكاديمية لعلوم الحاسوب وافصلها عن الرياضيات البحتة، مما ساعد في تأسيس علوم الحاسوب كتخصص أكاديمي مستقل."
+            }
+        ];
+
+        // معلومات عامة ومهمة
+        const generalInfoData = [
+            "ظهرت علوم الحاسوب كتخصص أكاديمي مستقل في الستينيات، بينما ظهرت تكنولوجيا المعلومات في التسعينيات لتلبية الاحتياجات التكنولوجية العملية.",
+            "أول قسم معترف به لعلوم الحاسوب في الولايات المتحدة أنشئ في جامعة بوردو عام 1962.",
+            "شهد عام 2012 'ثورة MOOCs' مع انطلاق منصات مثل Coursera وedX وUdacity التي وفرت تعليمًا عالي الجودة عبر الإنترنت.",
+            "ACM وIEEE هما المنظمتان المهنيتان الرائدتان في مجال الحوسبة، حيث توفران المعايير والمبادئ التوجيهية الأخلاقية وتدعمان تطوير المناهج الدراسية.",
+            "تتطور أخلاقيات الحوسبة لمعالجة قضايا الخصوصية في عصر المراقبة وجمع البيانات الضخمة، والملكية الفكرية في تطوير البرمجيات، والمسؤولية عن الضرر الناجم عن البرمجيات المتحيزة أو المعيبة.",
+            "بدأت برامج تكنولوجيا المعلومات المبكرة بالتركيز على الشبكات والأنظمة الموزعة وتقنيات الويب، مع برامج في 17 مؤسسة على الأقل في الولايات المتحدة بحلول عام 2000.",
+            "يجب على محترفي الحوسبة التأكد من استخدام الأجهزة والبرامج بأمان وعدل وفعالية، مع الالتزام بالمعايير الأخلاقية التي تحمي المستخدمين والمجتمع.",
+            "مع التوجه نحو الذكاء الاصطناعي والأتمتة والحوسبة السحابية، سيزداد الطلب على محترفي تكنولوجيا المعلومات المهرة والأخلاقيين."
+        ];
+
+        // وظائف JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // عرض أسئلة وأجوبة المحاضرة 5
+            const lecture5Container = document.getElementById('lecture5-qa');
+            lecture5Data.forEach((item, index) => {
+                const qaItem = createQAItem(item, index + 1, 'lecture5');
+                lecture5Container.appendChild(qaItem);
+            });
+
+            // عرض أسئلة وأجوبة المحاضرة 6
+            const lecture6Container = document.getElementById('lecture6-qa');
+            lecture6Data.forEach((item, index) => {
+                const qaItem = createQAItem(item, index + 1, 'lecture6');
+                lecture6Container.appendChild(qaItem);
+            });
+
+            // عرض المعلومات العامة
+            const generalInfoContainer = document.getElementById('general-info');
+            generalInfoData.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = item;
+                generalInfoContainer.appendChild(li);
+            });
+
+            // إضافة أزرار التحكم
+            setupControls();
+        });
+
+        // دالة لإنشاء عنصر سؤال/جواب
+        function createQAItem(data, number, lecture) {
+            const qaItem = document.createElement('div');
+            qaItem.className = 'qa-item';
+            
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `<span>${number}. ${data.question}</span><i class="fas fa-chevron-down toggle-icon"></i>`;
+            
+            const answerDiv = document.createElement('div');
+            answerDiv.className = 'answer';
+            answerDiv.innerHTML = data.answer;
+            
+            // إضافة حدث النقر للسؤال
+            questionDiv.addEventListener('click', function() {
+                answerDiv.classList.toggle('show');
+                const icon = this.querySelector('.toggle-icon');
+                icon.style.transform = answerDiv.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+            });
+            
+            qaItem.appendChild(questionDiv);
+            qaItem.appendChild(answerDiv);
+            
+            return qaItem;
+        }
+
+        // إعداد أزرار التحكم
+        function setupControls() {
+            // زر عرض جميع الإجابات
+            document.getElementById('expand-all').addEventListener('click', function() {
+                document.querySelectorAll('.answer').forEach(answer => {
+                    answer.classList.add('show');
+                });
+                document.querySelectorAll('.toggle-icon').forEach(icon => {
+                    icon.style.transform = 'rotate(180deg)';
+                });
+            });
+
+            // زر إخفاء جميع الإجابات
+            document.getElementById('collapse-all').addEventListener('click', function() {
+                document.querySelectorAll('.answer').forEach(answer => {
+                    answer.classList.remove('show');
+                });
+                document.querySelectorAll('.toggle-icon').forEach(icon => {
+                    icon.style.transform = 'rotate(0deg)';
+                });
+            });
+
+            // زر الطباعة
+            document.getElementById('print-btn').addEventListener('click', function() {
+                window.print();
+            });
+        }
+    </script>
+</body>
+</html>
